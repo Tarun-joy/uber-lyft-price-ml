@@ -39,6 +39,27 @@ cab_weather = cab_weather[pd.notnull(cab_weather['date_time_y'])]
 cab_weather = cab_weather[pd.notnull(cab_weather['price'])]
 cab_weather['day'] = cab_weather.date_time_x.dt.dayofweek
 cab_weather['day'].describe()
+cab_weather['hour'] = cab_weather.date_time_x.dt.hour
+cab_weather['day'].describe()
+cab_weather.columns
+cab_weather.count()
+
+#dividing the features into independant and dependent variables
+X = cab_weather[cab_weather.product_id=='lyft'][['day','distance','hour','temp','clouds', 'pressure','humidity', 'wind', 'rain']]
+Y = cab_weather[cab_weather.product_id=='lyft'][['price']]
+X.reset_index(inplace=True)
+X = X.drop(columns=['index'])
+#feature scaling and adding dummy variables
+features = pd.get_dummies(X)
+features.columns
+#Labels are the values we want to predict
+labels = np.array(Y)
+#Saving feature names for later use
+feature_list = list(features.columns)
+#Convert to numpy array
+features = np.array(features)
+
+
 #visualistion
 cab_weather.info()
 sb.lmplot(data=cab_weather,x='distance',y='price',fit_reg=True,hue='location',size=10,aspect=0.5)
