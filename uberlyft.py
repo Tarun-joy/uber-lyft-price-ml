@@ -44,7 +44,7 @@ cab_weather['day'].describe()
 cab_weather.columns
 cab_weather.count()
 
-#dividing the features into independant and dependent variables
+#dividing the features into independant and dependent variables for lyft
 X = cab_weather[cab_weather.product_id=='lyft'][['day','distance','hour','temp','clouds', 'pressure','humidity', 'wind', 'rain']]
 Y = cab_weather[cab_weather.product_id=='lyft'][['price']]
 X.reset_index(inplace=True)
