@@ -49,16 +49,16 @@ X = cab_weather[cab_weather.product_id=='lyft'][['day','distance','hour','temp',
 Y = cab_weather[cab_weather.product_id=='lyft'][['price']]
 X.reset_index(inplace=True)
 X = X.drop(columns=['index'])
-#feature scaling and adding dummy variables
+#feature scaling and converting the labels and features into arrays
 features = pd.get_dummies(X)
 features.columns
-#Labels are the values we want to predict
 labels = np.array(Y)
-#Saving feature names for later use
 feature_list = list(features.columns)
-#Convert to numpy array
 features = np.array(features)
-
+# Using Skicit-learn to split data into training and testing sets
+from sklearn.model_selection import train_test_split
+# Split the data into training and testing sets
+train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size =1/3, random_state = 0)
 
 #visualistion
 cab_weather.info()
