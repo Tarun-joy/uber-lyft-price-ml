@@ -43,24 +43,9 @@ cab_weather['hour'] = cab_weather.date_time_x.dt.hour
 cab_weather['day'].describe()
 cab_weather.columns
 cab_weather.count()
-
-#dividing the features into independant and dependent variables for product liftline
-X = cab_weather[cab_weather.product_id=='lyft_line'][['day','distance','hour','temp','clouds', 'pressure','humidity', 'wind', 'rain']]
-Y = cab_weather[cab_weather.product_id=='lyft_line'][['price']]
-X.reset_index(inplace=True)
-X = X.drop(columns=['index'])
-#feature scaling and converting the labels and features into arrays
-features = pd.get_dummies(X)
-features.columns
-labels = np.array(Y)
-feature_list = list(features.columns)
-features = np.array(features)
-# Using Skicit-learn to split data into training and testing sets
-from sklearn.model_selection import train_test_split
-# Split the data into training and testing sets
-train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size =1/3, random_state = 0)
-
-'''#visualistion
-cab_weather.info()
-sb.lmplot(data=cab_weather,x='distance',y='price',fit_reg=True,hue='location',size=10,aspect=0.5)
-sb.lmplot(data=cab_weather,x='time_stamp_y',y='price',fit_reg=True,hue='location',size=10,aspect=0.5)'''
+#dividing the features into dependent and independent varibles for uber
+X_lyft = cab_weather[cab_weather.cab_type=='Lyft'][['day','distance','hour','temp','clouds', 'pressure','humidity', 'wind', 'rain']]
+Y_lyft = cab_weather[cab_weather.cab_type=='Lyft'][['price']]
+X_lyft.reset_index(inplace=True)
+X_lyft = X_lyft.drop(columns=['index'])
+X_lyft.head().count
